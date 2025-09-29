@@ -1,0 +1,26 @@
+# train_simple_model.py
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+import joblib
+
+# ======================
+# 1) Load dataset
+# ======================
+df = pd.read_csv("data/train.csv")
+
+# Select only the features we want
+features = ["GrLivArea", "OverallQual", "GarageCars", "YearBuilt"]
+X = df[features]
+y = df["SalePrice"]
+
+# ======================
+# 2) Train simple model
+# ======================
+rf = RandomForestRegressor(n_estimators=200, random_state=42)
+rf.fit(X, y)
+
+# ======================
+# 3) Save model
+# ======================
+joblib.dump(rf, "simple_model.pkl")
+print("✅ Simple model saved as simple_model.pkl")
